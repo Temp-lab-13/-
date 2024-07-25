@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seminar 3 PLINQ and asynchrony", "Seminar 3 PLINQ and asynchrony.csproj", "{8E6ECDDD-AF50-477C-A70C-2F25E11D6F79}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E6ECDDD-AF50-477C-A70C-2F25E11D6F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6ECDDD-AF50-477C-A70C-2F25E11D6F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6ECDDD-AF50-477C-A70C-2F25E11D6F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6ECDDD-AF50-477C-A70C-2F25E11D6F79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3B0C34B-0CB4-44F3-B802-02ADF094F611}
+	EndGlobalSection
+EndGlobal
