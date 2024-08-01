@@ -10,7 +10,7 @@ namespace Client
 {
     internal class UDPClient
     {
-        public static void SendMessage(string From, string ip) // Принимаем при вызове имя клиента и ip сервера(?), к которому цепляемся.
+        public static void SendMessage(string From, string ip) // Принимаем при вызове имя клиента и ip сервера, к которому цепляемся.
         {
             UdpClient udpClient = new UdpClient();
             IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(ip), 12345);
@@ -22,9 +22,9 @@ namespace Client
                     Console.Clear();
                     Console.WriteLine("Введите сообщение: ");
                     message = Console.ReadLine();
-                } while (string.IsNullOrEmpty(message)); // Цикл пашет, пока мы хоть что-то не введём.
+                } while (string.IsNullOrEmpty(message)); 
 
-                Message msg = new Message() //Экземпляр сообщения с заполнением его полей.
+                Message msg = new Message() 
                 {
                     Text = message,
                     dateTime = DateTime.Now,
@@ -32,13 +32,13 @@ namespace Client
                     NickNameTo = "Server"
                 };
 
-                string json = msg.SerializeMassageToJason(); //Сериализуем.
+                string json = msg.SerializeMassageToJason(); 
 
                 byte[] date = Encoding.UTF8.GetBytes(json);
-                int cou = udpClient.Send(date, date.Length, iPEndPoint); //Отправляем, и получем колличество байт, которые удалось переслать.
+                int cou = udpClient.Send(date, date.Length, iPEndPoint); 
 
 
-                byte[] bufferAnswer = udpClient.Receive(ref iPEndPoint); // Запрашиваем ответ.
+                byte[] bufferAnswer = udpClient.Receive(ref iPEndPoint); 
 
                 
                 if (bufferAnswer != null && cou == date.Length) // Если ответ прилетел, а колличество перданных байт соответсвует размеру переведённого в массив байт сообщения.
@@ -47,14 +47,14 @@ namespace Client
                     Console.Write(answer); // И печатем его.
                     Console.WriteLine(" Нажмите любую клавишу, что бы завершить работу:");
                     Console.ReadKey();
-                    if (answer == "Сервер остановлен.")
+                    if (answer == "Сервер остановлен.") // Если сообщение от сервера является его оповещением об остановке. То мы завершаем работу клиента.
                     {
                         udpClient.Send(date, date.Length, iPEndPoint); // но, без него, сервер виснет, не закрывая приложение (если только не дать ошибке его закрашить).
                         return;
                     }
                 }
 
-                else
+                else // Если не получилось отправить сообщение целиком или мы не получили ответ, то пишем об ошибке доставки.
                 {
                     Console.WriteLine("Сообщение не доставлено.");
                 }
