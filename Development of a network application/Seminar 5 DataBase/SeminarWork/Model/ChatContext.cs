@@ -6,18 +6,22 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeminarWork
+namespace SeminarWork.Model
 {
     public class ChatContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
-   
-    
+
+        public ChatContext() { }
+
+        public ChatContext(DbContextOptions<ChatContext> options) : base(options) { }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // ms sql/ То же не работает, так как у меня тупо падает контейнер с бд. И я без понятия почему, ведь всё что он пишет (контейнер остановлент, так как сервер закончил свою работу... что?)  
-            optionsBuilder.UseSqlServer("Server=db:3306;Database=dbSeminar;Uid=kro;Pwd=ex").UseLazyLoadingProxies();
+            optionsBuilder.UseSqlServer("Server=db:3306;Database=dbSeminar;Security=False;TrustServerCertificate=True").UseLazyLoadingProxies();
 
 
             // Не работает с MySql. 
@@ -89,7 +93,7 @@ namespace SeminarWork
                 entity.ToTable("messages");
 
                 entity.HasKey(f => f.MessageId).HasName("messagePK");
-                
+
                 entity.Property(e => e.Text).HasColumnName("messageName");
                 entity.Property(e => e.DateSend).HasColumnName("messageData");
                 entity.Property(e => e.IsSent).HasColumnName("is_sent");
@@ -100,9 +104,6 @@ namespace SeminarWork
             });
         }
 
-        public ChatContext() 
-        {
 
-        }
     }
 }
