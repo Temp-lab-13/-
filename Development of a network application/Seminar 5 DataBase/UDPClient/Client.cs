@@ -44,7 +44,8 @@ namespace HomeWork.Service
                 }
                 catch (Exception ex) 
                 {
-                    Console.WriteLine($"Ошибка при получении сообщения: {ex.Message}");
+                    // Console.WriteLine($"Ошибка при получении сообщения: {ex.Message}");
+                    // Как и в сервере, не нужная вещь ,если мы не хотим утонуть в сообщениях об ошибках.
                 }
             }
         }
@@ -96,15 +97,17 @@ namespace HomeWork.Service
                 catch (Exception ex) 
                 {
                     Console.WriteLine($"Ошибка при обработке сообщения: {ex.Message}");
+                    
                 }
             }
 
         }
         public async Task StartClient()
         {
+            await ClientSender();
             await ClientListener();
 
-            await ClientSender();
+            
         }
     }
 

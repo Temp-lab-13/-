@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace HomeWork.Service
 {
 
-    // Класс форма. 
+    // Класс форма. В самом сервере он не играет роли. Я его храню тут для копипаста в другие клиенты.
     public class Client
     {
         private readonly string _name;
-        private readonly string address;
-        private readonly int port;
+        string address;
+        int port;
         private readonly IMessageSourse _messageSourse;
         private IPEndPoint endPoint;
 

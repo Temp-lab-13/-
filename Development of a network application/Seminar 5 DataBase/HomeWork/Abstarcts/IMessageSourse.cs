@@ -8,6 +8,7 @@ using HomeWork.Model;
 
 namespace HomeWork.Abstarcts
 {
+    // Интерфейс. Позволяет исползовать методы получения и отправки сообщения из одного места без копипасты.
     public interface IMessageSourse
     {
         Task SendAsync(NetMessage message, IPEndPoint iPEndPoint);

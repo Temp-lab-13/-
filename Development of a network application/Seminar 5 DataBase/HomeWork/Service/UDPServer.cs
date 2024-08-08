@@ -39,10 +39,10 @@ namespace HomeWork.Service
             }
         }
 
+        // Подтверждение статуса "доставлено" или нет.
         async Task ConfirmMessageReceived(int? id)
         {
             Console.WriteLine("Message confirmation id=" + id);
-            // Изменяем статус получения сообщения в базе данных
             using (var ctx = new ChatContext())
             {
                 var msg = ctx.Messages.FirstOrDefault(x => x.MessageId == id);
@@ -54,12 +54,11 @@ namespace HomeWork.Service
             }
         }
 
+        // Внесение сообщения в базу данных.
         private async Task RelyMessage(NetMessage message)
         {
-            
             if (clients.TryGetValue(message.NickNameTo, out IPEndPoint ep))
             {
-                // Добавляем сообщение в базу данных
                 int id = 0;
                 using (ChatContext ctx = new ChatContext())
                 {
@@ -108,24 +107,29 @@ namespace HomeWork.Service
             }
         }
 
+        // Запуск сервера.
         public async Task StartServer()
         {
+            Console.WriteLine("Сервер запущен.");
             CancellationTokenSource CTS = new CancellationTokenSource();
             while (!CTS.IsCancellationRequested)
             {
                 try
                 {
                     var message = _messageSourse.Receive(ref EndPoint);
-                    Console.WriteLine(message.ToString());
+                    message.PrintMessageFrom();
                     await ProcessMessage(message);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Ошибка при обработке сообщения: " + ex.Message);
+                    // Console.WriteLine("Ошибка при обработке сообщения: " + ex.Message);
+                    // Вот эта фигня совершенно не нужна, так как оишбки будут сыпаться непрерывно.
                 }
             }
         }
 
+        // Закрытие сервера.
+        // TODO реализовать команду закрытия.
         public void Stop() 
         {
             CTS.Cancel();

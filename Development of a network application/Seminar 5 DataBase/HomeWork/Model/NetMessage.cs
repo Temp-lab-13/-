@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace HomeWork.Model
 {
+    // Команды, кэп
     public enum Command
     {
         Register,
         Message,
         Confirmation
     }
+    // Шаблон сообщения между передающихся между юзерами.
     public class NetMessage
     {
         public int Id { get; set; }

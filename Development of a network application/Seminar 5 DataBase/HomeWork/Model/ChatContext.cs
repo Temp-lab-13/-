@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeWork.Model
 {
+    // Метод шаблон для базы данных. 
     public class ChatContext : DbContext
     {
         public DbSet<User> Users { get; set; }
@@ -17,7 +18,7 @@ namespace HomeWork.Model
 
         public ChatContext(DbContextOptions<ChatContext> options) : base(options) { }
 
-
+        // Делал черз постгресс. Миграция успешна, обновление базы данных успешно. Новые записи проходят и сохраняются.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {        
             optionsBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Username=postgres;Password=lotta;Database=TestNew");
@@ -27,7 +28,7 @@ namespace HomeWork.Model
         {
             modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("users"); // Название колонки?
+                entity.ToTable("users"); // Название колонки
 
                 entity.HasKey(x => x.Id).HasName("user_pkey"); // Авто инкремент
                 entity.HasIndex(x => x.FullName).IsUnique(); // Уникальность поля(имени)
