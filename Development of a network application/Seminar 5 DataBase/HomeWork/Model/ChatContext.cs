@@ -18,7 +18,7 @@ namespace HomeWork.Model
 
         public ChatContext(DbContextOptions<ChatContext> options) : base(options) { }
 
-        // Делал черз постгресс. Миграция успешна, обновление базы данных успешно. Новые записи проходят и сохраняются.
+        // Делал черз постгресс. Миграция успешна, обновление базы данных успешно.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {        
             optionsBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Username=postgres;Password=lotta;Database=TestNew");

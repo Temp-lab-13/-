@@ -21,7 +21,9 @@ namespace HomeWork.Service
         // Получение сообщения.
         public NetMessage Receive(ref IPEndPoint iPEndPoint)
         {
-            byte[] buffer = _udpClient.Receive(ref iPEndPoint);
+            IPEndPoint iP = new IPEndPoint(IPAddress.Any, 0);
+            //byte[] buffer = _udpClient.Receive(ref iPEndPoint);
+            byte[] buffer = _udpClient.Receive(ref iP);
             string str = Encoding.UTF8.GetString(buffer);
             return NetMessage.DeserializeMessgeFromJSON(str);//?? new NetMessage(); // На случай, если прилетит null, мы вернём пустой, но проинациализрованный месседж. меседж
         }
