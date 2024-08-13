@@ -1,0 +1,6 @@
+@WATaskTwo_HostAddress = http://localhost:5084
+
+GET {{WATaskTwo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

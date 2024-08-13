@@ -1,0 +1,6 @@
+@WATask3_HostAddress = http://localhost:5160
+
+GET {{WATask3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

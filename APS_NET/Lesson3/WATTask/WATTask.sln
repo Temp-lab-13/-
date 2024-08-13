@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WATask1", "WATask1\WATask1.csproj", "{08799DB0-F12E-49CA-BCF0-9E544272AD3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WATask2", "WATask2\WATask2.csproj", "{E4D9F887-3B16-43C4-8101-F97C2A8EB56D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WATask3", "WATask3\WATask3.csproj", "{91101358-28E0-4D61-9CBD-75B2A14819C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08799DB0-F12E-49CA-BCF0-9E544272AD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08799DB0-F12E-49CA-BCF0-9E544272AD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08799DB0-F12E-49CA-BCF0-9E544272AD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08799DB0-F12E-49CA-BCF0-9E544272AD3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4D9F887-3B16-43C4-8101-F97C2A8EB56D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4D9F887-3B16-43C4-8101-F97C2A8EB56D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4D9F887-3B16-43C4-8101-F97C2A8EB56D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D9F887-3B16-43C4-8101-F97C2A8EB56D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91101358-28E0-4D61-9CBD-75B2A14819C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91101358-28E0-4D61-9CBD-75B2A14819C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91101358-28E0-4D61-9CBD-75B2A14819C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91101358-28E0-4D61-9CBD-75B2A14819C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C27E101F-8D55-4620-A5E6-FB3ED448C858}
+	EndGlobalSection
+EndGlobal
