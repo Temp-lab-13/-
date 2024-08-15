@@ -5,6 +5,7 @@ using System.Net;
 
 namespace UDPClient
 {
+    // Клиет работает на билиотеках и адаптирован под обошённый интерфейс MessageSourseClient(). 
     internal class Program
     {
         static async Task Main(string[] args)
