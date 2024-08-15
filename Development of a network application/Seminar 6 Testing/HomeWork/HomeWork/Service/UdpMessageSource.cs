@@ -19,13 +19,13 @@ namespace HomeWork.Service
             _udpClient = new UdpClient();
         }
         // Получение сообщения.
-        public async NetMessage Receive(ref IPEndPoint iPEndPoint)
+        public NetMessage Receive(ref IPEndPoint iPEndPoint)
         {
             IPEndPoint iP = new IPEndPoint(IPAddress.Any, 0);
             byte[] buffer = _udpClient.Receive(ref iPEndPoint);
             //byte[] buffer = _udpClient.Receive(ref iP);
             string str = Encoding.UTF8.GetString(buffer);
-            return NetMessage.DeserializeMessgeFromJSON(str);//?? new NetMessage(); // На случай, если прилетит null, мы вернём пустой, но проинациализрованный месседж. меседж
+            return NetMessage.DeserializeMessgeFromJSON(str)?? new NetMessage(); // На случай, если прилетит null, мы вернём пустой, но проинациализрованный месседж. меседж
         }
         // Отправка сообщения.
         public async Task SendAsync(NetMessage message, IPEndPoint iPEndPoint)

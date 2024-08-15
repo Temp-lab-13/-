@@ -1,12 +1,14 @@
 ﻿using HomeWork.Abstarcts;
 using HomeWork.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace HomeWork.Service
 {
@@ -17,25 +19,27 @@ namespace HomeWork.Service
         private readonly int port;
         private readonly IMessageSourse _messageSourse;
         private IPEndPoint endPoint;
+        private UdpClient udpClient;
 
         public Client(string name, string address, int port)
         {
             this._name = name;
             this.address = address;
             this.port = port;
-            _messageSourse = new UdpMessageSource();
+            _messageSourse = new MessageSource();
             endPoint = new IPEndPoint(IPAddress.Parse(address), port);
+            udpClient = new UdpClient(54321);
         }
 
-        UdpClient udpClient = new UdpClient();
+         
 
-        async Task ClientListener()
+        public void ClientListener()
         {
             while (true)
             {
                 try
                 {
-                    var messageReceived = _messageSourse.Receive(ref endPoint);
+                    var messageReceived = _messageSourse.Receive(ref endPoint, ref udpClient);
 
                     Console.WriteLine($"Получено сообщение от {messageReceived.NickNameFrom}: ");
                     Console.WriteLine(messageReceived.Text);
@@ -44,7 +48,7 @@ namespace HomeWork.Service
                 }
                 catch (Exception ex) 
                 {
-                     Console.WriteLine($"Ошибка при получении сообщения: {ex.Message}");
+                    //Console.WriteLine($"Ошибка при получении сообщения: {ex.Message}");
                     // Как и в сервере, не нужная вещь ,если мы не хотим утонуть в сообщениях об ошибках.
                 }
             }
@@ -53,10 +57,10 @@ namespace HomeWork.Service
         async Task Confirm(NetMessage messageReceived, IPEndPoint endPoint)
         {
             messageReceived.Command = Command.Confirmation;
-            await _messageSourse.SendAsync(messageReceived, endPoint);
+            await _messageSourse.SendAsync(messageReceived, endPoint, udpClient);
         }
 
-        async Task Register(IPEndPoint iPEndPoint)
+        async Task Register()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Any, 0);
             var message = new NetMessage()
@@ -65,13 +69,14 @@ namespace HomeWork.Service
                 NickNameTo = null,
                 Text = null,
                 Command = Command.Register,
-                NickAddress = ep
+                //NickAddress = ep
             };
-            await _messageSourse.SendAsync(message, iPEndPoint);
+
+            await _messageSourse.SendAsync(message, endPoint, udpClient);
         }
-        async Task ClientSender()
+        public async Task ClientSender()
         {
-            Register(endPoint);
+            await Register();
 
             while (true)
             {
@@ -87,10 +92,12 @@ namespace HomeWork.Service
                         NickNameFrom = _name,
                         NickNameTo = nameTo,
                         Text = text,
+                        DateSend = DateTime.Now,
                         Command = Command.Message
                     };
 
-                    await _messageSourse.SendAsync(message, endPoint);
+
+                    await _messageSourse.SendAsync(message, endPoint, udpClient);
 
                     Console.WriteLine("Сообщение отправлено.");
                 }
@@ -104,8 +111,11 @@ namespace HomeWork.Service
         }
         public async Task StartClient()
         {
-            await ClientSender();
-            await ClientListener(); // Я чего-то не понимаю, но что-то сдлеано не так. второй метод не отрабатывает.
+            //ClientSender();
+            //ClientListener();
+            new Thread(() => ClientSender()).Start();
+            new Thread(() => ClientListener()).Start(); 
+            
 
         }
         

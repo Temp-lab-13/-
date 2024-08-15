@@ -16,10 +16,10 @@ namespace HomeWork.Service
 
         public UdpMessageSource()
         {
-            _udpClient = new UdpClient();
+            _udpClient = new UdpClient(12345);
         }
         // Получение сообщения.
-        public async NetMessage Receive(ref IPEndPoint iPEndPoint)
+        public NetMessage Receive(ref IPEndPoint iPEndPoint)
         {
             IPEndPoint iP = new IPEndPoint(IPAddress.Any, 0);
             byte[] buffer = _udpClient.Receive(ref iPEndPoint);

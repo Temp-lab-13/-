@@ -27,7 +27,7 @@ namespace Server
 
         public UDPServer()  // Создаём сервер
         {
-            udpClient = new UdpClient(12345); 
+            udpClient = new UdpClient(12345);
             iPEndPoint = new IPEndPoint(IPAddress.Any, 0);
             servitor = new Servitor(this);
             Users = new Dictionary<string, IPEndPoint>(); // Список создаём сразу, что бы избежать ошибок при поиске в списке юзеров, когда ещё не один юзер не был зарегистрирован.
