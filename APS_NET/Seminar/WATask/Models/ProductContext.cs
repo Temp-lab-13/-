@@ -14,7 +14,7 @@ namespace WATask.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Строка контакта");
+            optionsBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Username=postgres;Password=lotta;Database=AppStoreg");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,23 +26,37 @@ namespace WATask.Models
                 entity.HasKey(x => x.Id).HasName("ProductID");
                 entity.HasIndex(x => x.Name).IsUnique();
 
-                entity.Property(e => e.Name).HasColumnName("ProductName").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Name)
+                .HasColumnName("ProductName")
+                .HasMaxLength(255)
+                .IsRequired();
 
-                entity.Property(e => e.Descript).HasColumnName("Descript").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Descript)
+                .HasColumnName("Descript")
+                .HasMaxLength(255)
+                .IsRequired();
 
-                entity.Property(e => e.Price).HasColumnName("Price").IsRequired();
+                entity.Property(e => e.Price)
+                .HasColumnName("Price")
+                .IsRequired();
 
-                entity.HasOne(x => x.Category).WithMany(c => c.Products).HasForeignKey(x => x.Id).HasConstraintName("CategoryToProduct"); // Связь
+                entity.HasOne(x => x.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(x => x.CategoriId)
+                .HasConstraintName("CategoryProduct"); // Связь
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.ToTable("CategoryToProduct");
+                entity.ToTable("CategoryProduct");
 
                 entity.HasKey(x => x.Id).HasName("CategoryID");
                 entity.HasIndex(x => x.Name).IsUnique();
 
-                entity.Property(e => e.Name).HasColumnName("ProductName").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Name)
+                .HasColumnName("ProductName")
+                .HasMaxLength(255)
+                .IsRequired();
             });
 
             modelBuilder.Entity<Storage>(entity =>
@@ -52,16 +66,20 @@ namespace WATask.Models
                 entity.HasKey(x => x.Id).HasName("StorageID");
                 entity.HasIndex(x => x.Name).IsUnique();
 
-                entity.Property(e => e.Name).HasColumnName("StorageName").HasMaxLength(255).IsRequired();
-                entity.Property(e => e.Count).HasColumnName("ProductCount").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Name)
+                .HasColumnName("StorageName")
+                .HasMaxLength(255)
+                .IsRequired();
 
+                entity.Property(e => e.Count)
+                .HasColumnName("ProductCount")
+                .HasMaxLength(255)
+                .IsRequired();
 
-                entity.HasMany(x => x.Products).WithMany(m => m.Stores).UsingEntity(j => j.ToTable("StorageProduct"));
+                entity.HasMany(x => x.Products)
+                .WithMany(m => m.Stores)
+                .UsingEntity(j => j.ToTable("StorageToProduct"));
             });
-
         }
-
-
-
     }
 }

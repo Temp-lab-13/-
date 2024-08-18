@@ -2,6 +2,6 @@
 {
     public class Category : BModel
     {
-        public virtual List<Product> Products { get; set; } = new List<Product>();
+        public virtual List<Product>? Products { get; set; }
     }
 }
