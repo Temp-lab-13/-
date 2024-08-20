@@ -24,16 +24,6 @@ namespace WATask.Service
             this.memoryCache = memoryCache;
             this.context = context;
         }
-        public void AddCategory(CategoryDto category)
-        {
-            if (!context.Categories.Any(x => x.Name.Equals(category.Name)))
-            {
-                var entity = mapper.Map<Category>(category);
-                context.Categories.Add(entity);
-                context.SaveChanges();
-                memoryCache.Remove("categorys");
-            }
-        }
 
         public void AddProduct(ProductDto product)
         {
@@ -45,18 +35,6 @@ namespace WATask.Service
                 memoryCache.Remove("products");
                 memoryCache.Remove("productsCSV");
             }
-        }
-
-        public IEnumerable<CategoryDto> GetCategories()
-        {
-            if (memoryCache.TryGetValue("categorys", out List<CategoryDto> categoriesCash))
-            {
-                return categoriesCash;
-            } 
-
-            var categorys = context.Categories.Select(x => mapper.Map<CategoryDto>(x)).ToList();
-            memoryCache.Set("categorys", categorys, TimeSpan.FromMinutes(30));
-            return categorys;
         }
 
         public IEnumerable<ProductDto> GetProducts()
@@ -79,6 +57,7 @@ namespace WATask.Service
                 entity.Price = product.Price;
                 context.SaveChanges();
                 memoryCache.Remove("products");
+                memoryCache.Remove("productsCSV");
             }
         }
 
@@ -90,86 +69,9 @@ namespace WATask.Service
                 context.Products.Remove(entity); // Удаяляем его.
                 context.SaveChanges(); // Сохраняем изменения.
                 memoryCache.Remove("products");
+                memoryCache.Remove("productsCSV");
             }
         }
 
-        public void DeletCategory(CategoryDto category)
-        {
-            if (context.Categories.Any(x => x.Name.Equals(category.Name))) // Проверяем, есть ли такая категория.
-            {
-                var entity = context.Categories.Where(x => x.Name.Equals(category.Name)).FirstOrDefault();
-                var groupProduct = context.Products.Where(x => x.Id.Equals(category.Id)).ToList();
-                if (groupProduct.Any()) context.Products.RemoveRange(groupProduct); // Удаляем товары, предварительно проверив, что в категории хоть что=то есть.
-                context.Categories.Remove(entity); // Удаялем Группу.
-                context.SaveChanges(); // Сохраняем изменения.
-                memoryCache.Remove("categorys");
-                memoryCache.Remove("products");
-            }
-        }
-
-        public string GetProductCsvUrl()
-        {
-            var content = "";
-            if (memoryCache.TryGetValue("productsCSV", out List<ProductDto> productsCash))
-            {
-                content = GetCsv(productsCash);
-            }
-            else
-            {
-                var products = context.Products.Select(x => mapper.Map<ProductDto>(x)).ToList();
-                content = GetCsv(products);
-                memoryCache.Set("productsCSV", products, TimeSpan.FromMinutes(30));
-            }
-            
-            string fileName = "Product_list.csv";
-            string statisticFileName = "CachStat.txt";
-            string directoryName = "StaticFiles";
-            File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), directoryName, fileName), content);
-            return fileName;
-        }
-
-        public string GetProductCsv()
-        {
-            var content = "";
-            if (memoryCache.TryGetValue("productsCSV", out List<ProductDto> productsCash))
-            {
-                content = GetCsv(productsCash);
-            }
-            else
-            {
-                var products = context.Products.Select(x => mapper.Map<ProductDto>(x)).ToList();
-                content = GetCsv(products);
-                memoryCache.Set("productsCSV", products, TimeSpan.FromMinutes(30));
-            }
-            return content;
-        }
-
-        public string GetStatistic()
-        {
-            var statistic = GetCach(memoryCache.GetCurrentStatistics());
-            string statisticFileName = "CachStat.csv";
-            string directoryName = "StaticFiles";
-            File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), directoryName, statisticFileName), statistic);
-            return statisticFileName;
-        }
-
-
-
-        private string GetCsv(IEnumerable<ProductDto> products)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in products)
-            {
-                sb.AppendLine(($"Id: {item.Id}; Name: {item.Name}; Descript: {item.Descript}; Price: {item.Price}; CategoriId: {item.CategoriId};"));
-            }
-            return sb.ToString();
-        }
-
-        private string GetCach(MemoryCacheStatistics statistics)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(($"Entry Count: {statistics.CurrentEntryCount.ToString()}, EstimatedSize: {statistics.CurrentEstimatedSize.ToString()}, TotalHits: {statistics.TotalHits.ToString()}, TotalMisses: {statistics.TotalMisses.ToString()}"));
-            return sb.ToString();
-        }
     }
 }

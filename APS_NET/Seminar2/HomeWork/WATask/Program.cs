@@ -40,9 +40,11 @@ namespace WATask
             });
 
 
-            builder.Host.ConfigureContainer<ContainerBuilder>(x =>                       // Через него регистрируем и связываем интрефейс и сервис.
+            builder.Host.ConfigureContainer<ContainerBuilder>(x =>                       // Через него регистрируем и связываем интрефейсы и сервисы.
             {
                 x.RegisterType<ServiceProduct>().As<IServiceProduct>();
+                x.RegisterType<ServiceCategory>().As<IServiceCategory>();
+                x.RegisterType<ServiceFiles>().As<IServiceFiles>();
             });
             //builder.Services.AddSingleton<IServiceRepository, ServiceProduct>(); // Альтернатива автофагу - подключение и связывание интрефейса с сервесом.
 
