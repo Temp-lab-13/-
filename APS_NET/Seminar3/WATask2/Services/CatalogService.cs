@@ -31,7 +31,7 @@ namespace WATask2.Services
 
         public IEnumerable<CatalogDto> GetCatalog()
         {
-            using (var _productContext = new ProductContext())
+            using (_productContext)
             {
                 if (_memoryCache.TryGetValue("cataloges", out List<CatalogDto> category))
                 {

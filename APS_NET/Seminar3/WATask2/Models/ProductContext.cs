@@ -32,21 +32,22 @@ namespace WATask2.Models
 
                 entity.Property(e => e.Name).HasColumnName("ProductName").HasMaxLength(255).IsRequired();
 
-                entity.Property(e => e.Descript).HasColumnName("Descript").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Descript).HasColumnName("Descript").IsRequired();
 
                 entity.Property(e => e.Price).HasColumnName("Price").IsRequired();
 
-                entity.HasOne(x => x.Category).WithMany(c => c.Products).HasForeignKey(x => x.Id).HasConstraintName("CategoryToProduct"); // Связь
+                entity.HasOne(x => x.Category).WithMany(c => c.Products).HasForeignKey(x => x.CategoriId).HasConstraintName("CategoryProduct"); // Связь
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.ToTable("CategoryToProduct");
+                entity.ToTable("CategoryProduct");
 
                 entity.HasKey(x => x.Id).HasName("CategoryID");
                 entity.HasIndex(x => x.Name).IsUnique();
 
                 entity.Property(e => e.Name).HasColumnName("ProductName").HasMaxLength(255).IsRequired();
+                entity.Property(e => e.Descript).HasColumnName("Descript").IsRequired();
             });
 
             modelBuilder.Entity<Storage>(entity =>

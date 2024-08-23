@@ -10,5 +10,11 @@ namespace WATask2.Mutatin
             var id = service.AddProduct(product);
             return id;
         }
+
+        public int AddCategory(CatalogDto catalog, [Service] ICatalogService service) 
+        {
+            var id = service.AddCatalog(catalog);
+            return id; 
+        }
     }
 }

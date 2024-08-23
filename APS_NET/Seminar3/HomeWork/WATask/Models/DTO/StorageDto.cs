@@ -1,10 +1,10 @@
-﻿namespace WATask2.Models
+﻿namespace WATask.Models.DTO
 {
-    public class Category
+    public class StorageDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Descript { get; set; }
-        public virtual List<Product>? Products { get; set; }
+        public int? Count { get; set; }
     }
 }

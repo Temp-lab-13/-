@@ -4,7 +4,7 @@ namespace WATask2.Interface
 {
     public interface IProductService
     {
-        public int AddProduct(ProductDto product);
-        public IEnumerable<ProductDto> GetProducts();
+        int AddProduct(ProductDto product);
+        IEnumerable<ProductDto> GetProducts();
     }
 }
