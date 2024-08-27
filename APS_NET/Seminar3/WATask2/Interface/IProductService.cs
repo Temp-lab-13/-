@@ -6,5 +6,6 @@ namespace WATask2.Interface
     {
         int AddProduct(ProductDto product);
         IEnumerable<ProductDto> GetProducts();
+        bool ChekProduct(int productId);
     }
 }

@@ -37,7 +37,7 @@ namespace WATask.Service
             string fileName = "Product_list.csv";
             string statisticFileName = "CachStat.txt";
             string directoryName = "StaticFiles";
-            File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), directoryName, fileName), content);
+            File.WriteAllText(System.IO.Path.Combine(Directory.GetCurrentDirectory(), directoryName, fileName), content);
             return fileName;
         }
 
@@ -62,7 +62,7 @@ namespace WATask.Service
             var statistic = GetCach(memoryCache.GetCurrentStatistics());
             string statisticFileName = "CachStat.csv";
             string directoryName = "StaticFiles";
-            File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), directoryName, statisticFileName), statistic);
+            File.WriteAllText(System.IO.Path.Combine(Directory.GetCurrentDirectory(), directoryName, statisticFileName), statistic);
             return statisticFileName;
         }
 

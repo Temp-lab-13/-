@@ -20,7 +20,7 @@ namespace WATask.Service
             this.context = context;
         }
 
-        public void AddCategory(CategoryDto category)    // Добавление категории.
+        public bool AddCategory(CategoryDto category)    // Добавление категории.
         {
             if (!context.Categories.Any(x => x.Name.Equals(category.Name)))
             {
@@ -28,7 +28,9 @@ namespace WATask.Service
                 context.Categories.Add(entity);
                 context.SaveChanges();
                 memoryCache.Remove("categorys");
+                return true;
             }
+            return false;
         }
 
         public IEnumerable<CategoryDto> GetCategories() // Получение категории.
@@ -43,7 +45,7 @@ namespace WATask.Service
             return categorys;
         }
 
-        public void DeletCategory(CategoryDto category)
+        public bool DeletCategory(CategoryDto category) // Удаляем категории.
         {
             if (context.Categories.Any(x => x.Name.Equals(category.Name))) // Проверяем, есть ли такая категория.
             {
@@ -55,7 +57,9 @@ namespace WATask.Service
                 memoryCache.Remove("categorys");    // Чистим кэши.
                 memoryCache.Remove("products");
                 memoryCache.Remove("productsCSV");
+                return true;
             }
+            return false;
         }
 
     }

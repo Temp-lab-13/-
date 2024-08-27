@@ -1,35 +1,42 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
-using WATask2.Interface;
-using WATask2.Models;
-using WATask2.Models.Dto;
+using WATask2Storeg.Interface;
+using WATask2Storeg.Models;
+using WATask2Storeg.Models.Dto;
+using WATask2Storeg.WebClient;
 
-namespace WATask2.Services
+namespace WATask2Storeg.Services
 {
     public class StoreService : IStoreService
     {
-        private readonly ProductContext _productContext;
+        private readonly StoregContext _productContext;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _memoryCache;
-        public StoreService(IMapper mapper, IMemoryCache memoryCache, ProductContext productContext)
+        public StoreService(IMapper mapper, IMemoryCache memoryCache, StoregContext productContext)
         {
             _mapper = mapper;
             _productContext = productContext;
             _memoryCache = memoryCache;
         }
-        public int AddStore(StoreDto store)
+        public int AddPosition(StoreDto store)
         {
             using (_productContext)
             {
-                var ent = _mapper.Map<Storage>(store);
-                _productContext.Storages.Add(ent);
-                _productContext.SaveChanges();
-                _memoryCache.Remove("storage");
-                return ent.Id;
+                var exist = new StoregClient().ExistProduct(store.productId);
+                bool c = exist.Result;
+                if (c)
+                {
+                    var ent = _mapper.Map<Storage>(store);
+                    _productContext.Storages.Add(ent);
+                    _productContext.SaveChanges();
+                    _memoryCache.Remove("storage");
+                    return ent.Id;
+                }
+                return 0;
             }
         }
 
-        public IEnumerable<StoreDto> GetStore()
+        public IEnumerable<StoreDto> GetPosition()
         {
             using (_productContext)
             {

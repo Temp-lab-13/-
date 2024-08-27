@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System.Text;
-using System.Text.Json;
 using WATask.IAbstract;
 using WATask.Models;
 using WATask.Models.Context;
@@ -25,7 +20,7 @@ namespace WATask.Service
             this.context = context;
         }
 
-        public void AddProduct(ProductDto product)
+        public bool AddProduct(ProductDto product)  // Добавялем продукт.
         {
             if (!context.Products.Any(x => x.Name.Equals(product.Name)))
             {
@@ -34,10 +29,12 @@ namespace WATask.Service
                 context.SaveChanges();
                 memoryCache.Remove("products");
                 memoryCache.Remove("productsCSV");
+                return true;
             }
+            return false;
         }
 
-        public IEnumerable<ProductDto> GetProducts()
+        public IEnumerable<ProductDto> GetProducts()    //  Получаем списко продукторв.
         {
             if (memoryCache.TryGetValue("products", out List<ProductDto> productsCash))
             {
@@ -49,7 +46,13 @@ namespace WATask.Service
             return products;
         }
 
-        public void UpPrise(ProductDto product)
+        public ProductDto GetProduct(int productId)     //  Получаем конкретный продукт по id 
+        {
+            ProductDto product = mapper.Map<ProductDto>(context.Products.Where(x => x.Id == productId).FirstOrDefault());
+            return product;
+        }
+
+        public bool UpPrise(ProductDto product)     //  Менеям цену у товара.
         {
             if (context.Products.Any(x => x.Name.Equals(product.Name))) // Проверяем, есть ли такой продукт.
             {
@@ -58,10 +61,12 @@ namespace WATask.Service
                 context.SaveChanges();
                 memoryCache.Remove("products");
                 memoryCache.Remove("productsCSV");
+                return true;
             }
+            return false;
         }
 
-        public void DeletProduct(ProductDto product)
+        public bool DeletProduct(ProductDto product)    //  Удаляем продукт.
         {
             if (context.Products.Any(x => x.Name.Equals(product.Name))) // Проверяем, есть ли такой продукт.
             {
@@ -70,8 +75,17 @@ namespace WATask.Service
                 context.SaveChanges(); // Сохраняем изменения.
                 memoryCache.Remove("products");
                 memoryCache.Remove("productsCSV");
+                return true;
             }
+            return false ;
         }
 
+        public bool CheckProduct(int productId)     //  Проверяем наличие продукта по его id. Этот метод используется и в других сервесах.
+        {
+            bool resalt = context.Products.Any(x => x.Id == productId);
+            return resalt;
+        }
+
+        
     }
 }

@@ -24,8 +24,9 @@ namespace WATask2
             builder.Services.AddMemoryCache();                                      // Подключаем кэш.
             builder.Services.AddAutoMapper(typeof(MappingProfile));                 // Подключаем автомаппер и ссылаемся на наш мапинг-файл.
             builder.Services.AddTransient<IProductService, ProductService>();       // Подключаем сервисы.
-            builder.Services.AddTransient<IStoreService, StoreService>();            
+            //builder.Services.AddTransient<IStoreService, StoreService>();            
             builder.Services.AddTransient<ICatalogService, CatalogService>();
+            builder.Services.AddEndpointsApiExplorer(); // ?
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(cd =>
             {

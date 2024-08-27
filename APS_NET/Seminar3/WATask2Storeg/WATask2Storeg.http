@@ -1,0 +1,6 @@
+@WATask2Storeg_HostAddress = http://localhost:5210
+
+GET {{WATask2Storeg_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,18 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using WATask.IAbstract;
 using WATask.Models.DTO;
 
 namespace WATask.Controllers
 {
-    // Домашняя задача:
-    // №1. Доработайте контроллер, реализовав в нем метод возврата CSV-файла с товарами;
-    // №2. Доработайте контроллер реализовав статичный файл со статистикой работы кэш;
-    // №3. Сделайте файл доступным по ссылке;
-    // №4. Перенесите строку подключения для работы с базой данных в конфигурационный файл приложения.
-
-    [Route("Product/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -23,10 +15,24 @@ namespace WATask.Controllers
             this.service = service;
         }
 
-        [HttpGet(template: "GetProduct")] // Получение продукта
-        public IActionResult GetProduct() 
+        [HttpGet(template: "GetProducts")] // Получение списка продуктов
+        public IActionResult GetProducts() 
         {
             var products = service.GetProducts();
+            return Ok(products);
+        }
+
+        [HttpGet(template: "GetProduct")] // Получение конкрентного продукта
+        public IActionResult GetProduct([FromQuery] int productId)
+        {
+            var products = service.GetProduct(productId);
+            return Ok(products);
+        }
+
+        [HttpGet(template: "CheckProduct")]     // Проверка на существование в базе данных продукта.
+        public IActionResult CheckProduct([FromQuery] int productId) 
+        {
+            var products = service.CheckProduct(productId);
             return Ok(products);
         }
 

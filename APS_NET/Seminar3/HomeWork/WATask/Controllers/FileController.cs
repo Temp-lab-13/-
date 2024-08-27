@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WATask.IAbstract;
 
 namespace WATask.Controllers
 {
-    [Route("File/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class FileController : ControllerBase
     {

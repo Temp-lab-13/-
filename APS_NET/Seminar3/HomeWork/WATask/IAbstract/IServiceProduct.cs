@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WATask.Models.DTO;
+﻿using WATask.Models.DTO;
 
 namespace WATask.IAbstract
 {
     public interface IServiceProduct
     {
-        void AddProduct(ProductDto product);
+        bool AddProduct(ProductDto product);    // Методы буленвы потому то Граф требует у мутаций методов возращаяющий хоть что-то.
         IEnumerable<ProductDto> GetProducts();
-        void UpPrise(ProductDto product);
-        void DeletProduct(ProductDto product);
+        bool UpPrise(ProductDto product);
+        bool DeletProduct(ProductDto product);
+        bool CheckProduct(int productId);
+        ProductDto GetProduct(int productId); 
     }
 }

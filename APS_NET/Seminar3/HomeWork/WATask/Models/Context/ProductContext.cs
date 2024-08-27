@@ -64,7 +64,7 @@ namespace WATask.Models.Context
                 .HasMaxLength(255)
                 .IsRequired();
             });
-
+            //  Блок Storege к удалению.
             modelBuilder.Entity<Storage>(entity =>
             {
                 entity.ToTable("Storage");

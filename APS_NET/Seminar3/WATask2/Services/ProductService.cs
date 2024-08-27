@@ -31,6 +31,19 @@ namespace WATask2.Services
             }
         }
 
+        public bool ChekProduct(int productId)
+        {
+            using (_productContext) 
+            {
+                if(_memoryCache.TryGetValue("products", out List<ProductDto> producs))
+                {
+                    return true;
+                };
+                bool result = _productContext.Products.Any(x => x.Id == productId);
+                return result;
+            }
+        }
+
         public IEnumerable<ProductDto> GetProducts()
         {
             using (_productContext)

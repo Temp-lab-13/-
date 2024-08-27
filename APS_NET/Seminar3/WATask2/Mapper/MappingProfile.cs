@@ -10,7 +10,7 @@ namespace WATask2.Mapper
         {
             CreateMap<Product, ProductDto>(MemberList.Destination).ReverseMap();
             CreateMap<Category, CatalogDto>(MemberList.Destination).ReverseMap();
-            CreateMap<Storage, StoreDto>(MemberList.Destination).ReverseMap();
+            //CreateMap<Storage, StoreDto>(MemberList.Destination).ReverseMap();
         }
 
     }

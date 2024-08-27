@@ -4,8 +4,8 @@ namespace WATask.IAbstract
 {
     public interface IServiceCategory
     {
-        void AddCategory(CategoryDto category);
+        bool AddCategory(CategoryDto category); // Методы буленвы потому то Граф требует у мутаций методов возращаяющий хоть что-то. Ну и так профе понимать что не сработало что-то.
         IEnumerable<CategoryDto> GetCategories();
-        void DeletCategory(CategoryDto product);
+        bool DeletCategory(CategoryDto product);
     }
 }

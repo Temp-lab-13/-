@@ -7,7 +7,7 @@ namespace WATask2.Models
         private readonly string _connectionString;
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; } 
-        public DbSet<Storage> Storages { get; set; }
+        //public DbSet<Storage> Storages { get; set; }
 
         public ProductContext() { }
 
@@ -50,7 +50,7 @@ namespace WATask2.Models
                 entity.Property(e => e.Descript).HasColumnName("Descript").IsRequired();
             });
 
-            modelBuilder.Entity<Storage>(entity =>
+            /*modelBuilder.Entity<Storage>(entity =>
             {
                 entity.ToTable("Storage");
 
@@ -62,7 +62,7 @@ namespace WATask2.Models
 
 
                 entity.HasMany(x => x.Products).WithMany(m => m.Stores).UsingEntity(j => j.ToTable("StorageProduct"));
-            });
+            });*/
 
         }
 

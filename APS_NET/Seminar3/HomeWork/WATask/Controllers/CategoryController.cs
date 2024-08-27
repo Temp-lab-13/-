@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WATask.IAbstract;
 using WATask.Models.DTO;
 
 namespace WATask.Controllers
 {
-    [Route("Category/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
