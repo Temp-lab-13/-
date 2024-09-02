@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  product:
+    image: product:latest
+    container_name: watproduct
+    restart: always
+    ports:
+      - "70:4190"
+
+  storetask:
+
+    image: storetask:latest
+    container_name: watstoretask
+    restart: always
+    ports:
+      - "80:4290"
+
+  gateway:
+
+    image: gateway:latest
+    container_name: watgateway
+    restart: always
+    ports:
+      - "90:4190"
+

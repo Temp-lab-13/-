@@ -31,6 +31,7 @@
             //Console.WriteLine(personOne.Mother?.Name);
             //Console.WriteLine(personTwo.GetGrand());
             Console.WriteLine(personOne.GetRelatives());
+            Console.WriteLine(personTwo.GetRelatives());
         }
     }
 }

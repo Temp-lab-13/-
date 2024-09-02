@@ -1,0 +1,84 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/Product/{method}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7164
+        }
+      ],
+      "UpstreamPathTemplate": "/Product/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "SwaggerKey": "Product"
+    },
+    {
+      "DownstreamPathTemplate": "/Category/{method}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7164
+        }
+      ],
+      "UpstreamPathTemplate": "/Category/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
+      "SwaggerKey": "Product"
+    },
+    {
+      "DownstreamPathTemplate": "/File/{method}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7164
+        }
+      ],
+      "UpstreamPathTemplate": "/File/{method}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "Product"
+    },
+    {
+      "DownstreamPathTemplate": "/Storage/{method}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7160
+        }
+      ],
+      "UpstreamPathTemplate": "/Storage/{method}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "SwaggerKey": "Storege"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:6696"
+  },
+  "SwaggerEndPoints": [
+    {
+      "Key": "Product",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "ProductService",
+          "Version": "v1",
+          "Url": "https://localhost:7164/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Storege",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "StoregeService",
+          "Version": "v1",
+          "Url": "https://localhost:7160/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+
+}

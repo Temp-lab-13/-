@@ -1,0 +1,6 @@
+@JWTAppTaskOne_HostAddress = http://localhost:5143
+
+GET {{JWTAppTaskOne_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
