@@ -8,6 +8,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Development
-EXPOSE 4290
+EXPOSE 8080
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "/app/WATaskStoreg.dll"]
