@@ -7,8 +7,8 @@
             // Домашняя работа:
             int[] arr = { -2, 10, 2, 31, 4, 6, 16, 7, 8, 9 };
             int number = 18;
-            //HomeWork_Seminar4.FindNumber(arr, number);
-            //Console.WriteLine("\n Иной вариант: ");
+            HomeWork_Seminar4.FindNumber(arr, number);
+            Console.WriteLine("\nИной вариант: ");
             HomeWork_Seminar4.FindNumberVer2(arr, number);
 
 
